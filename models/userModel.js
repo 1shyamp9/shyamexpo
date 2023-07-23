@@ -18,10 +18,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         require:true
     },
-    photo:{
-        type:String,
-        require:true
-    },
+    // photo:{
+    //     type:String,
+    //     require:true
+    // },
     createdAt:{
         type:Date,
         require: new Date(Date.now())

@@ -4,7 +4,7 @@ import { createCookie } from "../utils/feture.js";
 
 export const createUser = async (req, res) => {
     try {
-        const { name, email, address, password, photo } = req.body;
+        const { name, email, address, password} = req.body;
         let user = await User.findOne({ email });
         if (user) {
             return res.status(404).json({
@@ -13,7 +13,7 @@ export const createUser = async (req, res) => {
             })
         }
         const hashPass = await bcrypt.hash(password, 10)
-        user = await User.create({ name, email, address, password: hashPass, photo });
+        user = await User.create({ name, email, address, password: hashPass});
         res.status(201).json({
             success: true,
             message: `Created Successfully Welcome ${user.name}`,
@@ -54,7 +54,7 @@ export const userLogout = async (req, res) => {
             httpOnly: false,
             expire: Date.now(),
             sameSite: process.env.NODE_ENV === 'Development' ? 'lax' : 'none',
-            secure : process.env.NODE_ENV === 'Development' ? false : true,
+            secure: process.env.NODE_ENV === 'Development' ? false : true,
         }).json({
             success: true,
             message: "Logout Successfully"
@@ -72,10 +72,24 @@ export const deleteUser = async (req, res) => {
             httpOnly: false,
             expire: Date.now(),
             sameSite: process.env.NODE_ENV === 'Development' ? 'lax' : 'none',
-            secure : process.env.NODE_ENV === 'Development' ? false : true,
+            secure: process.env.NODE_ENV === 'Development' ? false : true,
         }).json({
             success: true,
             message: "User Deleted Permanently",
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+export const updateUser = async (req, res) => {
+    try {
+        const { name, email, address} = req.body;
+        const userId = req.user
+        const user = await User.findByIdAndUpdate(userId, { $set: { name, email, address } });
+        res.status(200).json({
+            success: true,
+            message: "User Updated Successfully",
+            user,
         })
     } catch (error) {
         console.log(error);
