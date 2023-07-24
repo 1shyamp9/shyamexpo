@@ -17,3 +17,7 @@ app.use('/api/user',userRouter)
 configDotenv({ path: './database/config.env' });
 
 app.use(cors())
+
+app.get('/',(req,res)=>{
+    res.send("Nice Api is Working...")
+})
