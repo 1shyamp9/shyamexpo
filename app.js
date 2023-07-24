@@ -9,14 +9,17 @@ app.use(express.json());
 app.use(cookieParser())
 // app.use(cors({
 //     origin:[process.env.FRONTEND_URL],
-//     methods:['POST','GET','PUT','DELETE'],
-//     credential:true
+//     methods:["GET","POST","PUT","DELETE"],
+//     credentials:true,
 // }))
+app.use(cors({
+    origin:[process.env.FRONTEND_URL],
+    methods:["GET","POST","PUT","DELETE"],
+    credentials:true,
+}))
 app.use('/user',userRouter)
 
 configDotenv({ path: './database/config.env' });
-
-app.use(cors())
 
 app.get('/',(req,res)=>{
     res.send("Nice Api is Working...")
