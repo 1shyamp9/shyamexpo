@@ -16,7 +16,7 @@ export const createUser = async (req, res) => {
         user = await User.create({ name, email, address, password: hashPass});
         res.status(201).json({
             success: true,
-            message: `Created Successfully Welcome ${user.name}`,
+            message: `Account Created Successfully`,
             user,
         })
     } catch (error) {
