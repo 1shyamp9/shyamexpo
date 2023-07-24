@@ -12,7 +12,7 @@ app.use(cookieParser())
 //     methods:['POST','GET','PUT','DELETE'],
 //     credential:true
 // }))
-app.use('/api/user',userRouter)
+app.use('/user',userRouter)
 
 configDotenv({ path: './database/config.env' });
 
